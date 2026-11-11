@@ -1,0 +1,2 @@
+{"host":"api.example.com","a":["93.184.216.34"],"aaaa":[],"cname":[],"status_code":"NOERROR"}
+{"host":"www.example.com","a":["93.184.216.34"],"aaaa":[],"cname":["example.com"],"status_code":"NOERROR"}

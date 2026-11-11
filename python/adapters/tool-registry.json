@@ -1,0 +1,1406 @@
+[
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "subdomain_enumeration",
+      "passive_recon"
+    ],
+    "category": "reconnaissance",
+    "enabled": true,
+    "image": "projectdiscovery/subfinder:2.6.6",
+    "input_schema": {},
+    "name": "Subfinder",
+    "network_profile": "passive_dns",
+    "optional_inputs": [
+      "resolvers",
+      "sources"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "subdomain"
+    ],
+    "priority": 9,
+    "required_inputs": [
+      "domain"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "root_domain",
+      "subdomain"
+    ],
+    "tool_id": "subfinder",
+    "trigger": [
+      "asset.discovered",
+      "asset.updated"
+    ],
+    "version": "v2.6.6"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive",
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "dns_resolution",
+      "dns_records"
+    ],
+    "category": "reconnaissance",
+    "enabled": true,
+    "image": "projectdiscovery/dnsx:1.2.1",
+    "input_schema": {},
+    "name": "DNSx",
+    "network_profile": "dns",
+    "optional_inputs": [
+      "resolvers",
+      "record_types"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "dns_record",
+      "ip"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "hostname"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "hostname",
+      "subdomain",
+      "ip"
+    ],
+    "tool_id": "dnsx",
+    "trigger": [
+      "asset.discovered",
+      "asset.updated",
+      "dns.record.discovered"
+    ],
+    "version": "v1.2.1"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "http_probe",
+      "technology_detection",
+      "title_extraction"
+    ],
+    "category": "reconnaissance",
+    "enabled": true,
+    "image": "projectdiscovery/httpx:1.6.9",
+    "input_schema": {},
+    "name": "HTTPx",
+    "network_profile": "controlled_http",
+    "optional_inputs": [
+      "ports",
+      "status_codes"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "http_service",
+      "technology"
+    ],
+    "priority": 9,
+    "required_inputs": [
+      "hostname"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "hostname",
+      "subdomain",
+      "http_service"
+    ],
+    "tool_id": "httpx",
+    "trigger": [
+      "asset.discovered",
+      "asset.updated",
+      "dns.record.discovered"
+    ],
+    "version": "v1.6.9"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "crawling",
+      "endpoint_discovery",
+      "js_endpoint_extraction"
+    ],
+    "category": "reconnaissance",
+    "enabled": true,
+    "image": "projectdiscovery/katana:1.1.0",
+    "input_schema": {},
+    "name": "Katana",
+    "network_profile": "controlled_http",
+    "optional_inputs": [
+      "depth",
+      "js_crawl",
+      "headless"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "endpoint",
+      "javascript",
+      "parameter"
+    ],
+    "priority": 8,
+    "required_inputs": [
+      "http_service"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service",
+      "endpoint",
+      "javascript"
+    ],
+    "tool_id": "katana",
+    "trigger": [
+      "http.service.discovered",
+      "javascript.discovered"
+    ],
+    "version": "v1.1.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "historical_urls",
+      "passive_asset_intelligence"
+    ],
+    "category": "reconnaissance",
+    "enabled": true,
+    "image": "lc/gau:2.2.3",
+    "input_schema": {},
+    "name": "GetAllUrls",
+    "network_profile": "passive_http",
+    "optional_inputs": [
+      "providers",
+      "filters"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "url"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "domain"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "root_domain",
+      "url"
+    ],
+    "tool_id": "gau",
+    "trigger": [
+      "asset.discovered",
+      "asset.updated"
+    ],
+    "version": "v2.2.3"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "directory_discovery",
+      "file_discovery",
+      "parameter_fuzzing"
+    ],
+    "category": "content_discovery",
+    "enabled": true,
+    "image": "ffuf/ffuf:2.1.0",
+    "input_schema": {},
+    "name": "FFUF",
+    "network_profile": "controlled_http",
+    "optional_inputs": [
+      "wordlist",
+      "status_codes",
+      "extensions"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "endpoint"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service",
+      "endpoint"
+    ],
+    "tool_id": "ffuf",
+    "trigger": [
+      "http.service.discovered",
+      "http.endpoint.discovered"
+    ],
+    "version": "v2.1.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "directory_discovery",
+      "recursive_discovery"
+    ],
+    "category": "content_discovery",
+    "enabled": true,
+    "image": "epi052/feroxbuster:2.10.4",
+    "input_schema": {},
+    "name": "Feroxbuster",
+    "network_profile": "controlled_http",
+    "optional_inputs": [
+      "wordlist",
+      "status_codes"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "endpoint"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service",
+      "endpoint"
+    ],
+    "tool_id": "feroxbuster",
+    "trigger": [
+      "http.service.discovered",
+      "http.endpoint.discovered"
+    ],
+    "version": "v2.10.4"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "api_route_discovery",
+      "api_schema_analysis"
+    ],
+    "category": "api_discovery",
+    "enabled": true,
+    "image": "assetnote/kiterunner:1.0.2",
+    "input_schema": {},
+    "name": "Kiterunner",
+    "network_profile": "controlled_http",
+    "optional_inputs": [
+      "wordlist",
+      "methods"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "api_endpoint"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "api_host"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service",
+      "api_spec",
+      "endpoint"
+    ],
+    "tool_id": "kiterunner",
+    "trigger": [
+      "api.endpoint.discovered",
+      "api.schema.discovered",
+      "http.endpoint.discovered"
+    ],
+    "version": "v1.0.2"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "parameter_discovery"
+    ],
+    "category": "api_discovery",
+    "enabled": true,
+    "image": "s0md3v/arjun:2.2.1",
+    "input_schema": {},
+    "name": "Arjun",
+    "network_profile": "controlled_http",
+    "optional_inputs": [
+      "wordlist",
+      "methods"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "parameter"
+    ],
+    "priority": 8,
+    "required_inputs": [
+      "endpoint"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint",
+      "parameter"
+    ],
+    "tool_id": "arjun",
+    "trigger": [
+      "http.endpoint.discovered",
+      "api.endpoint.discovered",
+      "parameter.discovered"
+    ],
+    "version": "v2.2.1"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery",
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "safe_vulnerability_templates",
+      "technology_templates",
+      "parameter_checks"
+    ],
+    "category": "web_vulnerability_testing",
+    "enabled": true,
+    "image": "projectdiscovery/nuclei:3.3.5",
+    "input_schema": {},
+    "name": "Nuclei",
+    "network_profile": "controlled_http",
+    "optional_inputs": [
+      "templates",
+      "severity",
+      "rate_limit"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 9,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service",
+      "endpoint",
+      "technology"
+    ],
+    "tool_id": "nuclei",
+    "trigger": [
+      "http.service.discovered",
+      "http.endpoint.discovered",
+      "api.endpoint.discovered",
+      "technology.detected",
+      "parameter.discovered"
+    ],
+    "version": "v3.3.5"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery",
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "port_scan",
+      "service_discovery"
+    ],
+    "category": "network",
+    "enabled": true,
+    "image": "instrumentisto/nmap:7.95",
+    "input_schema": {},
+    "name": "Nmap",
+    "network_profile": "tcp",
+    "optional_inputs": [
+      "ports",
+      "scan_type"
+    ],
+    "output_schema": {},
+    "output_types": [
+      "port",
+      "service"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "hostname"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "hostname",
+      "ip",
+      "port",
+      "service"
+    ],
+    "tool_id": "nmap",
+    "trigger": [
+      "dns.record.discovered",
+      "asset.discovered"
+    ],
+    "version": "v7.95"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "subdomain_enumeration"
+    ],
+    "category": "reconnaissance",
+    "enabled": false,
+    "image": "caffix/amass:4.2.0",
+    "input_schema": {},
+    "name": "Amass",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "subdomain"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "domain"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "subdomain"
+    ],
+    "tool_id": "amass",
+    "trigger": [
+      "asset.discovered"
+    ],
+    "version": "v4.2.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "directory_discovery"
+    ],
+    "category": "content_discovery",
+    "enabled": false,
+    "image": "ghcr.io/oj/gobuster:3.6.0",
+    "input_schema": {},
+    "name": "Gobuster",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "endpoint"
+    ],
+    "priority": 5,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service"
+    ],
+    "tool_id": "gobuster",
+    "trigger": [
+      "http.service.discovered"
+    ],
+    "version": "v3.6.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "directory_discovery"
+    ],
+    "category": "content_discovery",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "Dirsearch",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "endpoint"
+    ],
+    "priority": 5,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service"
+    ],
+    "tool_id": "dirsearch",
+    "trigger": [
+      "http.service.discovered"
+    ],
+    "version": "v0.4.3"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "parameter_fuzzing"
+    ],
+    "category": "content_discovery",
+    "enabled": false,
+    "image": "wfuzz/wfuzz:3.1.0",
+    "input_schema": {},
+    "name": "Wfuzz",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "endpoint"
+    ],
+    "priority": 4,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service"
+    ],
+    "tool_id": "wfuzz",
+    "trigger": [
+      "http.service.discovered"
+    ],
+    "version": "v3.1.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "xss_scanning"
+    ],
+    "category": "web_vulnerability_testing",
+    "enabled": false,
+    "image": "hahwul/dalfox:2.10.1",
+    "input_schema": {},
+    "name": "Dalfox",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 8,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "dalfox",
+    "trigger": [
+      "parameter.discovered"
+    ],
+    "version": "v2.10.1"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "sql_injection_testing"
+    ],
+    "category": "web_vulnerability_testing",
+    "enabled": false,
+    "image": "sqlmapproject/sqlmap:1.8.5",
+    "input_schema": {},
+    "name": "SQLmap",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 8,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "sqlmap",
+    "trigger": [
+      "parameter.discovered"
+    ],
+    "version": "v1.8.5"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "sql_injection_testing"
+    ],
+    "category": "web_vulnerability_testing",
+    "enabled": false,
+    "image": "ghauri/ghauri:1.2.4",
+    "input_schema": {},
+    "name": "Ghauri",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "ghauri",
+    "trigger": [
+      "parameter.discovered"
+    ],
+    "version": "v1.2.4"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "ssti_testing"
+    ],
+    "category": "web_vulnerability_testing",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "SSTImap",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "sstimap",
+    "trigger": [
+      "parameter.discovered"
+    ],
+    "version": "v1.1.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "ssrf_testing"
+    ],
+    "category": "web_vulnerability_testing",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "SSRFmap",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "ssrfmap",
+    "trigger": [
+      "parameter.discovered"
+    ],
+    "version": "v1.0.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "jwt_analysis"
+    ],
+    "category": "web_vulnerability_testing",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "JWT Tool",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "jwt_tool",
+    "trigger": [
+      "http.endpoint.discovered"
+    ],
+    "version": "v2.2.6"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "api_schema_testing"
+    ],
+    "category": "advanced_testing",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "Schemathesis",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 8,
+    "required_inputs": [
+      "openapi_schema"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "api_spec"
+    ],
+    "tool_id": "schemathesis",
+    "trigger": [
+      "api.schema.discovered"
+    ],
+    "version": "v3.29.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "stateful_api_testing"
+    ],
+    "category": "advanced_testing",
+    "enabled": false,
+    "image": "mcr.microsoft.com/restler:9.0.0",
+    "input_schema": {},
+    "name": "RESTler",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "openapi_schema"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "api_spec"
+    ],
+    "tool_id": "restler",
+    "trigger": [
+      "api.schema.discovered"
+    ],
+    "version": "v9.0.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "graphql_testing"
+    ],
+    "category": "advanced_testing",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "GraphQLmap",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "api_spec"
+    ],
+    "tool_id": "graphqlmap",
+    "trigger": [
+      "api.schema.discovered"
+    ],
+    "version": "v1.0.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "sast"
+    ],
+    "category": "source_code",
+    "enabled": false,
+    "image": "semgrep/semgrep:1.86.0",
+    "input_schema": {},
+    "name": "Semgrep",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "source_path"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [],
+    "tool_id": "semgrep",
+    "trigger": [],
+    "version": "v1.86.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "sast"
+    ],
+    "category": "source_code",
+    "enabled": false,
+    "image": "ghcr.io/github/codeql:2.19.0",
+    "input_schema": {},
+    "name": "CodeQL",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "source_path"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [],
+    "tool_id": "codeql",
+    "trigger": [],
+    "version": "v2.19.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "sca",
+      "container_scan"
+    ],
+    "category": "source_code",
+    "enabled": false,
+    "image": "aquasec/trivy:0.56.1",
+    "input_schema": {},
+    "name": "Trivy",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "source_path"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [],
+    "tool_id": "trivy",
+    "trigger": [],
+    "version": "v0.56.1"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "cloud_posture"
+    ],
+    "category": "cloud",
+    "enabled": false,
+    "image": "toniblyx/prowler:5.5.0",
+    "input_schema": {},
+    "name": "Prowler",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "cloud_account"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [],
+    "tool_id": "prowler",
+    "trigger": [],
+    "version": "v5.5.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "cloud_posture"
+    ],
+    "category": "cloud",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "ScoutSuite",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "cloud_account"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [],
+    "tool_id": "scoutsuite",
+    "trigger": [],
+    "version": "v5.13.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "cloud_enumeration"
+    ],
+    "category": "cloud",
+    "enabled": false,
+    "image": "bishopfox/cloudfox:1.14.1",
+    "input_schema": {},
+    "name": "CloudFox",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "asset"
+    ],
+    "priority": 5,
+    "required_inputs": [
+      "cloud_account"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [],
+    "tool_id": "cloudfox",
+    "trigger": [],
+    "version": "v1.14.1"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "port_scan"
+    ],
+    "category": "network",
+    "enabled": false,
+    "image": "rustscan/rustscan:2.1.1",
+    "input_schema": {},
+    "name": "RustScan",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "port"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "hostname"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "hostname",
+      "ip"
+    ],
+    "tool_id": "rustscan",
+    "trigger": [
+      "asset.discovered"
+    ],
+    "version": "v2.1.1"
+  },
+  {
+    "applicable_execution_profiles": [
+      "low_impact_discovery"
+    ],
+    "capabilities": [
+      "tls_analysis"
+    ],
+    "category": "network",
+    "enabled": false,
+    "image": "drwetter/testssl.sh:3.2",
+    "input_schema": {},
+    "name": "testssl.sh",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "finding"
+    ],
+    "priority": 5,
+    "required_inputs": [
+      "hostname"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "http_service"
+    ],
+    "tool_id": "testssl",
+    "trigger": [
+      "http.service.discovered"
+    ],
+    "version": "v3.2.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "subdomain_enumeration",
+      "passive_recon"
+    ],
+    "category": "reconnaissance",
+    "enabled": false,
+    "image": "blacklanternsecurity/bbot:2.3.0",
+    "input_schema": {},
+    "name": "BBOT",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "subdomain",
+      "http_service"
+    ],
+    "priority": 8,
+    "required_inputs": [
+      "domain"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "subdomain"
+    ],
+    "tool_id": "bbot",
+    "trigger": [
+      "asset.discovered"
+    ],
+    "version": "v2.3.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "parameter_discovery"
+    ],
+    "category": "api_discovery",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "ParamSpider",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "parameter"
+    ],
+    "priority": 5,
+    "required_inputs": [
+      "domain"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "paramspider",
+    "trigger": [
+      "asset.discovered"
+    ],
+    "version": "v2.0.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "js_endpoint_extraction"
+    ],
+    "category": "api_discovery",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "JSluice",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "endpoint"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "javascript"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "javascript"
+    ],
+    "tool_id": "js-luice",
+    "trigger": [
+      "javascript.discovered"
+    ],
+    "version": "v1.0.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "passive"
+    ],
+    "capabilities": [
+      "js_endpoint_extraction"
+    ],
+    "category": "api_discovery",
+    "enabled": false,
+    "image": "python:3.12-slim",
+    "input_schema": {},
+    "name": "LinkFinder",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "endpoint"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "javascript"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "javascript"
+    ],
+    "tool_id": "linkfinder",
+    "trigger": [
+      "javascript.discovered"
+    ],
+    "version": "v1.0.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "parameter_discovery"
+    ],
+    "category": "api_discovery",
+    "enabled": false,
+    "image": "sh1yo/x8:3.1.0",
+    "input_schema": {},
+    "name": "x8",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "parameter"
+    ],
+    "priority": 7,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "x8",
+    "trigger": [
+      "http.endpoint.discovered"
+    ],
+    "version": "v3.1.0"
+  },
+  {
+    "applicable_execution_profiles": [
+      "authorized_vulnerability_testing"
+    ],
+    "capabilities": [
+      "parameter_mining"
+    ],
+    "category": "advanced_testing",
+    "enabled": false,
+    "image": "portswigger/param-miner:1.0.0",
+    "input_schema": {},
+    "name": "Param Miner",
+    "network_profile": "controlled_http",
+    "optional_inputs": [],
+    "output_schema": {},
+    "output_types": [
+      "parameter"
+    ],
+    "priority": 6,
+    "required_inputs": [
+      "url"
+    ],
+    "resource_profile": {
+      "cpu": "low",
+      "memory": "low"
+    },
+    "supported_asset_types": [
+      "endpoint"
+    ],
+    "tool_id": "param-miner",
+    "trigger": [
+      "http.endpoint.discovered"
+    ],
+    "version": "v1.0.0"
+  }
+]

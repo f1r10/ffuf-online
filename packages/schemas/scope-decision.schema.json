@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ffuf.online/schemas/scope-decision.schema.json",
+  "title": "ScopeDecision",
+  "description": "Contract between the Rust Scope Enforcement Engine and every caller (Go control plane, Python tool adapters, egress gateway).",
+  "type": "object",
+  "required": ["request_id", "decision", "reason_code", "evaluated_at"],
+  "properties": {
+    "request_id": { "type": "string" },
+    "decision": { "type": "string", "enum": ["approved", "rejected"] },
+    "reason_code": {
+      "type": "string",
+      "enum": [
+        "IN_SCOPE",
+        "OUT_OF_SCOPE",
+        "EXCLUDED",
+        "NO_SCOPE_RULES",
+        "INVALID_TARGET",
+        "PRIVATE_IP_BLOCKED",
+        "LOOPBACK_IP_BLOCKED",
+        "LINK_LOCAL_IP_BLOCKED",
+        "METADATA_IP_BLOCKED",
+        "RESERVED_IP_BLOCKED",
+        "AUTHORIZATION_EXPIRED",
+        "AUTHORIZATION_MISSING",
+        "PROFILE_NOT_PERMITTED",
+        "REDIRECT_OUT_OF_SCOPE",
+        "RATE_POLICY_MISSING",
+        "DNS_REBINDING_SUSPECTED"
+      ]
+    },
+    "reason": { "type": "string" },
+    "matched_rule_id": { "type": ["string", "null"] },
+    "normalized_target": { "type": ["string", "null"] },
+    "risk_flags": { "type": "array", "items": { "type": "string" } },
+    "scope_version": { "type": "integer" },
+    "evaluated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

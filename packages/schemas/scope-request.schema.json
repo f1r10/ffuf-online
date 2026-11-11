@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ffuf.online/schemas/scope-request.schema.json",
+  "title": "ScopeRequest",
+  "description": "Input contract for POST /v1/scope/decide and POST /v1/egress/authorize in the Rust Scope Enforcement Engine.",
+  "type": "object",
+  "required": ["tenant_id", "project_id", "policy_profile", "target", "scope_rules"],
+  "properties": {
+    "request_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "scope_version": { "type": "integer", "minimum": 1 },
+    "policy_profile": {
+      "type": "string",
+      "enum": ["passive", "low_impact_discovery", "authorized_vulnerability_testing"]
+    },
+    "target": {
+      "type": "object",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["domain", "wildcard_domain", "hostname", "ip", "cidr", "url", "url_prefix"] },
+        "value": { "type": "string" },
+        "scheme": { "type": ["string", "null"] },
+        "host": { "type": ["string", "null"] },
+        "port": { "type": ["integer", "null"] },
+        "path": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "resolved_ips": { "type": "array", "items": { "type": "string" } },
+    "redirect_chain": { "type": "array", "items": { "type": "string" } },
+    "dest_ip": { "type": ["string", "null"] },
+    "scope_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "value", "action"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string", "enum": ["domain", "wildcard_domain", "hostname", "ip", "cidr", "url_prefix"] },
+          "value": { "type": "string" },
+          "action": { "type": "string", "enum": ["include", "exclude"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "rate_policy": {
+      "type": "object",
+      "properties": {
+        "max_rps": { "type": ["integer", "null"] },
+        "max_concurrency": { "type": ["integer", "null"] }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "properties": {
+        "authorized": { "type": "boolean" },
+        "expires_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "now": { "type": ["string", "null"], "format": "date-time" }
+  },
+  "additionalProperties": false
+}

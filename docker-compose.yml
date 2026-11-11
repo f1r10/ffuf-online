@@ -1,0 +1,113 @@
+version: "3.9"
+
+# Full-stack deployment. The control plane / workers also run with STORAGE=memory and
+# EVENT_BUS=inprocess so that `python tests/e2e/run_pipeline.py` works with zero
+# external dependencies.
+
+x-common-env: &common-env
+  STORAGE: postgres
+  EVENT_BUS: nats
+  DISPATCH: nats
+  DATABASE_URL: postgres://ffuf:ffuf@postgres:5432/ffuf_online?sslmode=disable
+  NATS_URL: nats://nats:4222
+  REDIS_URL: redis://redis:6379/0
+  SCOPE_ENGINE_URL: http://scope-engine:8090
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ffuf
+      POSTGRES_PASSWORD: ffuf
+      POSTGRES_DB: ffuf_online
+    ports: ["5432:5432"]
+    volumes:
+      - ./migrations:/docker-entrypoint-initdb.d:ro
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ffuf -d ffuf_online"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  nats:
+    image: nats:2.10-alpine
+    command: ["-js", "-m", "8222", "--store_dir", "/data"]
+    ports: ["4222:4222", "8222:8222"]
+    volumes: [natsdata:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8222/healthz || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Rust scope enforcement kernel — the security boundary.
+  scope-engine:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/scope-engine.Dockerfile
+    environment:
+      SCOPE_ENGINE_ADDR: 0.0.0.0:8090
+      EGRESS_BLOCK_PRIVATE: "true"
+      EGRESS_BLOCK_METADATA: "true"
+      EGRESS_BLOCK_LOOPBACK: "true"
+    ports: ["8090:8090"]
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/scope-engine", "health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/go.Dockerfile
+      args: { TARGET: api }
+    environment:
+      <<: *common-env
+      API_ADDR: 0.0.0.0:8080
+    ports: ["8080:8080"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      nats: { condition: service_healthy }
+      scope-engine: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "/app/api", "health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  worker-manager:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/go.Dockerfile
+      args: { TARGET: worker-manager }
+    environment:
+      <<: *common-env
+    depends_on:
+      nats: { condition: service_healthy }
+      scope-engine: { condition: service_healthy }
+
+  intelligence-engine:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/python.Dockerfile
+    environment:
+      <<: *common-env
+      INTEL_MAX_WORKFLOW_DEPTH: "5"
+    depends_on:
+      nats: { condition: service_healthy }
+      scope-engine: { condition: service_healthy }
+
+volumes:
+  pgdata:
+  natsdata:

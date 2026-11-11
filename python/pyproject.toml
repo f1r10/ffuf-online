@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ffuf-intel"
+version = "0.1.0"
+description = "FFUF Online — Python tool adapters and event-driven Intelligence Engine"
+requires-python = ">=3.10"
+# Runtime: Python standard library only. No third-party runtime dependency.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools]
+packages = ["ffuf_intel", "adapters"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

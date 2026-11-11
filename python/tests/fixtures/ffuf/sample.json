@@ -1,0 +1,7 @@
+{
+  "commandline": "ffuf -u https://api.example.com/FUZZ -w /wordlists/default.txt -mc 200,403 -o /tmp/ffuf-report.json -of json",
+  "results": [
+    {"input": {"FUZZ": "admin"}, "position": 1, "status": 200, "length": 1234, "words": 10, "lines": 5, "content-type": "text/html", "url": "https://api.example.com/admin"},
+    {"input": {"FUZZ": "robots.txt"}, "position": 2, "status": 200, "length": 42, "words": 3, "lines": 2, "content-type": "text/plain", "url": "https://api.example.com/robots.txt"}
+  ]
+}

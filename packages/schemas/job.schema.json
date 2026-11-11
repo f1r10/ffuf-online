@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ffuf.online/schemas/job.schema.json",
+  "title": "Job",
+  "description": "Signed unit of work dispatched by the Go Worker Manager to a worker agent. Never contains a shell string; only structured arguments.",
+  "type": "object",
+  "required": [
+    "job_id", "tenant_id", "project_id", "scope_version", "policy_version",
+    "tool_id", "tool_version", "input", "limits", "created_at", "expires_at", "idempotency_key"
+  ],
+  "properties": {
+    "job_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "scope_version": { "type": "integer" },
+    "policy_version": { "type": "integer" },
+    "tool_id": { "type": "string" },
+    "tool_version": { "type": "string" },
+    "execution_profile": {
+      "type": "string",
+      "enum": ["passive", "low_impact_discovery", "authorized_vulnerability_testing"]
+    },
+    "input": { "type": "object" },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "cpu": { "type": "string" },
+        "memory": { "type": "string" },
+        "timeout_seconds": { "type": "integer" },
+        "max_requests": { "type": ["integer", "null"] },
+        "max_rps": { "type": ["integer", "null"] }
+      }
+    },
+    "task_id": { "type": ["string", "null"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "idempotency_key": { "type": "string" },
+    "signature": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

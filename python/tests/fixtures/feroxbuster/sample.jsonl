@@ -1,0 +1,3 @@
+{"type":"response","url":"https://api.example.com/admin/","status":200,"content_length":1234,"line_count":5,"word_count":10,"method":"GET"}
+{"type":"response","url":"https://api.example.com/robots.txt","status":200,"content_length":42,"line_count":2,"word_count":3,"method":"GET"}
+{"type":"statistics","total_requests":100,"responses":2}

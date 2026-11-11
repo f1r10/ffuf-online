@@ -1,0 +1,1 @@
+{"url":"https://api.example.com","input":"api.example.com","host":"api.example.com","port":443,"status_code":200,"title":"Example API","tech":["nginx","Express"],"webserver":"nginx","content_length":1234,"failed":false}

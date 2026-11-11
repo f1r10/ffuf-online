@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nmaprun scanner="nmap" args="nmap -oX - -Pn -sV -p 80,443 api.example.com" start="1" version="7.95">
+  <host starttime="1" endtime="2">
+    <status state="up" reason="syn-ack"/>
+    <address addr="93.184.216.34" addrtype="ipv4"/>
+    <ports>
+      <port protocol="tcp" portid="443">
+        <state state="open" reason="syn-ack"/>
+        <service name="https" product="nginx" version="1.25"/>
+      </port>
+      <port protocol="tcp" portid="80">
+        <state state="closed" reason="reset"/>
+        <service name="http"/>
+      </port>
+    </ports>
+  </host>
+</nmaprun>

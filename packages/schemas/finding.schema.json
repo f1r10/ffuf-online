@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ffuf.online/schemas/finding.schema.json",
+  "title": "Finding",
+  "description": "A candidate or validated security finding. A discovered endpoint is NOT automatically a vulnerability; lifecycle status is explicit.",
+  "type": "object",
+  "required": ["id", "tenant_id", "project_id", "finding_type", "title", "severity", "confidence", "status", "scope_version"],
+  "properties": {
+    "id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "asset_id": { "type": ["string", "null"] },
+    "endpoint": { "type": ["string", "null"] },
+    "http_method": { "type": ["string", "null"] },
+    "parameter": { "type": ["string", "null"] },
+    "finding_type": { "type": "string" },
+    "title": { "type": "string" },
+    "severity": { "type": "string", "enum": ["unknown", "info", "low", "medium", "high", "critical"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["discovered", "candidate", "needs_validation", "validated", "rejected", "confirmed_impact", "report_ready", "submitted", "accepted", "duplicate", "informative"]
+    },
+    "source_tools": { "type": "array", "items": { "type": "string" } },
+    "evidence_ids": { "type": "array", "items": { "type": "string" } },
+    "related_finding_ids": { "type": "array", "items": { "type": "string" } },
+    "scope_version": { "type": "integer" }
+  },
+  "additionalProperties": false
+}

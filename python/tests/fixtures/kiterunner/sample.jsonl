@@ -1,0 +1,2 @@
+{"method":"GET","url":"https://api.example.com/api/v2/users","status":200,"length":123,"words":5,"attrs":[]}
+{"method":"POST","url":"https://api.example.com/api/v2/orders","status":201,"length":45,"words":3,"attrs":[]}

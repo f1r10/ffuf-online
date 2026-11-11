@@ -1,0 +1,1 @@
+{"https://api.example.com/api/v2/users": {"GET": {"params": ["user_id", "token"], "status": 200}}}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ffuf.online/schemas/asset.schema.json",
+  "title": "Asset",
+  "description": "Normalized asset node in the shared asset graph. Emitted by tool adapters, stored by the Go control plane, related by the Python Intelligence Engine.",
+  "type": "object",
+  "required": ["id", "tenant_id", "project_id", "asset_type", "value", "first_seen_at", "last_seen_at"],
+  "properties": {
+    "id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "asset_type": {
+      "type": "string",
+      "enum": ["root_domain", "subdomain", "hostname", "ip", "cidr", "service", "port", "http_service", "endpoint", "url", "parameter", "technology", "javascript", "api_spec", "finding"]
+    },
+    "value": { "type": "string" },
+    "parent_asset_id": { "type": ["string", "null"] },
+    "source_tools": { "type": "array", "items": { "type": "string" } },
+    "scope_status": { "type": "string", "enum": ["in_scope", "out_of_scope", "unknown"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "metadata": { "type": "object" },
+    "first_seen_at": { "type": "string", "format": "date-time" },
+    "last_seen_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

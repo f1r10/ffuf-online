@@ -1,0 +1,2 @@
+{"timestamp":"2026-11-11T10:00:00Z","url":"https://api.example.com/api/v2/users","method":"GET","tag":"a","source":"https://api.example.com/","attribute":"href","status_code":200}
+{"timestamp":"2026-11-11T10:00:01Z","url":"https://api.example.com/static/app.js","method":"GET","tag":"script","source":"https://api.example.com/","attribute":"src","status_code":200}

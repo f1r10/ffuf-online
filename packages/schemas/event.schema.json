@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ffuf.online/schemas/event.schema.json",
+  "title": "DomainEvent",
+  "description": "Envelope published to NATS JetStream and consumed by the Python Intelligence Engine.",
+  "type": "object",
+  "required": ["event_id", "tenant_id", "project_id", "event_type", "timestamp", "schema_version", "payload"],
+  "properties": {
+    "event_id": { "type": "string" },
+    "tenant_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "asset.discovered", "asset.updated",
+        "dns.record.discovered", "http.service.discovered", "http.endpoint.discovered",
+        "http.redirect.discovered", "api.endpoint.discovered", "api.schema.discovered",
+        "parameter.discovered", "technology.detected", "javascript.discovered",
+        "tool.execution.started", "tool.execution.completed", "tool.execution.failed",
+        "finding.candidate.created", "finding.evidence.added", "finding.validated", "finding.rejected",
+        "scope.changed", "scope.expired", "task.created", "task.cancelled"
+      ]
+    },
+    "source_tool": { "type": ["string", "null"] },
+    "source_execution_id": { "type": ["string", "null"] },
+    "asset_ref": { "type": ["string", "null"] },
+    "scope_version": { "type": "integer" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "schema_version": { "type": "string" },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,2 @@
+https://api.example.com/api/v2/users?id=1
+https://api.example.com/api/v2/orders
